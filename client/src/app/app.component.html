@@ -1,0 +1,42 @@
+<nav class="navbar navbar-light bg-light header_css">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="https://technource.s3.us-west-1.amazonaws.com/assets/images/technource-logo.png" alt="" width="30"
+        height="24" class="d-inline-block align-text-top">
+    </a>
+  </div>
+</nav>
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li>
+        <a routerLink="articles">Articles</a>
+      </li>
+
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    
+      <router-outlet></router-outlet>
+
+      <!-- /#page-content-wrapper -->
+
+    
+  </div>
+</div>
+<!-- /#wrapper -->
+
+
+<footer class="page-footer font-small blue bg-light">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© {{currentYear}} Copyright:
+    <a href="https://technource.com/"> technource.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>

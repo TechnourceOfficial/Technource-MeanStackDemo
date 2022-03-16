@@ -1,0 +1,135 @@
+<div class="container" *ngIf="isCheckList">
+  <div class="row">
+    <div class="col-4">
+      <h4>{{sectionTitle}} List</h4>
+    </div>
+    <div class="col-8 text-end"><button class="btn btn-primary" (click)="addFormFunc()">Add New</button></div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" *ngFor="let column of articleColumnsArr; let i = index">{{column.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of articleList; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{article.title}}</td>
+        <td>{{article.description}}</td>
+        <td>{{article.author}}</td>
+        <td>-</td>
+        <td><button class="btn btn-primary" (click)="editFormFunc(article)">Edit</button>&nbsp;<button class="btn btn-danger">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container" *ngIf="isCheckAddForm">
+  <div class="row">
+    <div class="col-4">
+      <h4>Add New {{sectionTitle}}</h4>
+    </div>
+    <div class="col-8 text-end"><button class="btn btn-primary" (click)="backListFunc()">Back To List</button></div>
+  </div>
+  <form [formGroup]="addArticleForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" formControlName="title"
+        [ngClass]="{ 'is-invalid': isAddFormSubmitted && f['title'].errors }">
+      <div *ngIf="f['title'].errors && isAddFormSubmitted" class="invalid-feedback">
+        <div *ngIf="f['title'].errors['required']">Title is required.</div>
+        <div *ngIf="f['title'].errors['minlength']">At least 6 character is required.</div>
+        <div *ngIf="f['title'].errors['pattern']">Format is invalid(All only character & space).</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email"
+        [ngClass]="{'is-invalid':isAddFormSubmitted && f['email'].errors}">
+      <div class="invalid-feedback" *ngIf="f['email'].errors && isAddFormSubmitted">
+        <div *ngIf="f['email'].errors['required']">Email is required.</div>
+        <div *ngIf="f['email'].errors['email']">Email format is invalid.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" formControlName="description" [ngClass]="{'is-invalid': isAddFormSubmitted && f['description'].errors}">
+      <div class="invalid-feedback" *ngIf="f['description'].errors && isAddFormSubmitted">
+        <div *ngIf="f['description'].errors['required']">Description is required.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Author</label>
+      <input type="text" class="form-control" id="author" formControlName="author" [ngClass]="{'is-invalid': isAddFormSubmitted && f['author'].errors}">
+      <div class="invalid-feedback" *ngIf="f['author'].errors && isAddFormSubmitted">
+        <div *ngIf="f['author'].errors['required']">Author is required.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Image</label>
+      <input type="file" class="form-control" id="image" formControlName="image" [ngClass]="{'is-invalid': isAddFormSubmitted && f['image'].errors}">
+      <div class="invalid-feedback" *ngIf="f['image'].errors && isAddFormSubmitted">
+        <div *ngIf="f['image'].errors['required']">Image is required.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  
+</div>
+<div class="container" *ngIf="isCheckUpdateForm">
+  <div class="row">
+    <div class="col-4">
+      <h4>Edit {{sectionTitle}}</h4>
+    </div>
+<form [formGroup]="editArticleForm" (ngSubmit)="onSubmit()" novalidate>
+  <div >
+  <div class="mb-3" *ngIf="showdata">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" formControlName="title" [(ngModel)]="showdata.title">
+    <div *ngIf="f['title'].errors && isAddFormSubmitted" class="invalid-feedback">
+      <div *ngIf="f['title'].errors['required']">Title is required.</div>
+      <div *ngIf="f['title'].errors['minlength']">At least 6 character is required.</div>
+      <div *ngIf="f['title'].errors['pattern']">Format is invalid(All only character & space).</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" formControlName="email"
+      [ngClass]="{'is-invalid':isAddFormSubmitted && f['email'].errors}">
+    <div class="invalid-feedback" *ngIf="f['email'].errors && isAddFormSubmitted">
+      <div *ngIf="f['email'].errors['required']">Email is required.</div>
+      <div *ngIf="f['email'].errors['email']">Email format is invalid.</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" formControlName="description" [ngClass]="{'is-invalid': isAddFormSubmitted && f['description'].errors}">
+    <div class="invalid-feedback" *ngIf="f['description'].errors && isAddFormSubmitted">
+      <div *ngIf="f['description'].errors['required']">Description is required.</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Author</label>
+    <input type="text" class="form-control" id="author" formControlName="author" [ngClass]="{'is-invalid': isAddFormSubmitted && f['author'].errors}">
+    <div class="invalid-feedback" *ngIf="f['author'].errors && isAddFormSubmitted">
+      <div *ngIf="f['author'].errors['required']">Author is required.</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Image</label>
+    <input type="file" class="form-control" id="image" formControlName="image" [ngClass]="{'is-invalid': isAddFormSubmitted && f['image'].errors}">
+    <div class="invalid-feedback" *ngIf="f['image'].errors && isAddFormSubmitted">
+      <div *ngIf="f['image'].errors['required']">Image is required.</div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+</div>
+</div>
